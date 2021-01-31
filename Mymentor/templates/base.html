@@ -1,0 +1,38 @@
+﻿{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}MyMentorSite{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="My mentor site">
+    <meta name="author" content="Ivan Delija">
+    <link rel="icon" href="{% static 'css/headerLogo.png' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>{% block style %} .footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+
+   color: #556B2F;
+   text-align: center;
+}{% endblock %}</style>
+</head>
+<body style="background-color:#F8F8FF;">
+
+    {% block content %}{% endblock %}
+
+<div class="footer">
+  <center><p>Ivan Delija &#169; 2021</p>
+</div>
+
+       
+
+</body>
+</html>

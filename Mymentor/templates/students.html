@@ -1,0 +1,112 @@
+{% extends 'base.html'%}
+
+{% block title %}  Students {% endblock %}
+
+
+{% block style %}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+
+   color: #556B2F;
+   text-align: center;
+{% endblock %}
+
+{% block content %}
+{%if user.is_authenticated%}
+	 
+	{%if user.is_staff%}
+ <div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="/home" class="w3-bar-item w3-button"><b>{{user.email}}</b> Home</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="courses" class="w3-bar-item w3-button">courses</a>
+      
+      <a href="accounts/logout" class="w3-bar-item w3-button">Logout</a>
+    
+    </div>
+  </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+<div class="row">
+  <div class="column">
+<table>
+  <tr>
+    <th><center>Students list</th>
+  </tr>
+  {% for a in allusers %}
+   <tr>
+
+    <td>
+     
+     <center>{{ a.email}}<a href="/list/{{ a.id}}/2" class="w3-bar-item w3-button"><p style="color:red;">Enter</p></a></td>
+   
+     </tr>
+
+{% endfor %} 
+ 
+
+</table>
+</div></div>
+
+	{%else%}
+
+<h1>Dont have permissions!</h1>
+
+
+
+{%endif%}
+	
+
+	
+{%else%}
+  <h1>Dont have permissions!</h1>
+{%endif%}
+{% endblock %}
+

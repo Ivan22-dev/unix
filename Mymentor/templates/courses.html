@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+
+
+{% block title %} Courses {% endblock %}
+
+{% block style %}
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 80%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+
+   color: #556B2F;
+   text-align: center;
+
+{% endblock %}
+
+{% block content %}
+
+{%if user.is_authenticated%}
+	 
+	{%if user.is_staff%}
+ <div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="/home" class="w3-bar-item w3-button"><b>{{user.email}}</b> Home</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+       <a href="students" class="w3-bar-item w3-button">students</a>
+      <a href="/accounts/logout" class="w3-bar-item w3-button">Logout</a>
+    
+    </div>
+  </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+<div class="row">
+<div class="column">
+<a href="addcourse" class="w3-bar-item w3-button"><p style="color:#6495ED;">Add course</p></a>
+<table >
+  <tr>
+    <th><center>Courses list</th>
+  </tr>
+  
+
+  {% for c in courses %}
+  <form method="POST" action="/courses">
+       {% csrf_token %}
+   <tr>
+      <input type="text" name= "code" value="{{c.code}}"  hidden>  
+    <td><center>{{ c.name}} ({{ c.code}})  <a href="detailcourse/{{ c.code}}" class="w3-bar-item w3-button"><p style="color:#6495ED;">Details</p></a><a href="editcourse/{{ c.code}}" class="w3-bar-item w3-button"><p style="color:red;">Edit</p></a>
+      <button type="submit" class="registerbtn"><p style="color:red;">Delete</p></button></td>
+
+   </tr>
+   </form> 
+{% endfor %} 
+ 
+
+</table>
+</div></div>
+
+	{%else%}
+
+<h1>Dont have permissions!</h1>
+
+
+
+{%endif%}
+	
+
+	
+{%else%}
+  <h1>Dont have permissions!</h1>
+{%endif%}
+{% endblock %}
+

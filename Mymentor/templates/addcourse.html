@@ -1,0 +1,189 @@
+{% extends 'base.html'%}
+
+
+{% block title %} Courses {% endblock %}
+
+{% block style %}
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 80%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+
+   color: #556B2F;
+   text-align: center;
+
+
+
+{% endblock %}
+
+{% block content %}
+
+{%if user.is_authenticated%}
+	 
+	{%if user.is_staff%}
+ <div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="/home" class="w3-bar-item w3-button"><b>{{user.email}}</b> Home</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+       <a href="students" class="w3-bar-item w3-button">students</a>
+      <a href="/accounts/logout" class="w3-bar-item w3-button">Logout</a>
+    
+    </div>
+  </div>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+<div class="row">
+<div class="column">
+<a href="courses" class="w3-bar-item w3-button"><p style="color:red;">Back</p></a>
+<table >
+  <tr>
+    <th><center>Add new course</th>
+  </tr>
+  
+  <form method="POST" action="/addcourse">
+       {% csrf_token %}
+         </tr>
+  <tr>
+    <th>Name</th><td><input type="text" name=name  required >
+
+ </td>
+  </tr>
+    <tr>
+    <th>Code</th><td><input type="text" name=code    required>
+
+ </td>
+  </tr>
+   
+  <tr>
+    <th>Program</th><td><input type="text" name=program    required>
+
+ </td>
+  </tr>
+  <tr>
+   <th> Points</th><td><input type="number" name=points  required>
+
+ </td>
+  </tr>
+
+    <tr>
+   <th>Semestar redovni</th><td><input type="number" name=sem_redovni   required >
+
+ </td>
+  </tr>
+    <tr>
+   <th> Semestar izvanredni</th><td><input type="number" name=sem_izvanredni   required> 
+
+ </td>
+  </tr>
+    <tr>
+
+   <th> Izborni</th><td><select id="izborni" name="izborni"   required>
+    <option value="da">Da</option>
+    <option value="ne">Ne</option>
+    <option selected="Da" hidden="Da">Da</option>
+  
+  </select>
+
+ </td>
+  </tr>
+   <tr>
+<td colspan="2"><center><button type="submit" class="registerbtn">Confirm</button><td> </tr>
+  </form>
+  
+
+ 
+
+</table>
+<div>
+    {% for message in messages %}
+      <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+      <strong>Add course!</strong> {{message}} 
+      </div>
+    
+    {% endfor %}
+  </div>  
+</div></div>
+
+	{%else%}
+
+<h1>Dont have permissions!</h1>
+
+
+
+{%endif%}
+	
+
+	
+{%else%}
+  <h1>Dont have permissions!</h1>
+{%endif%}
+{% endblock %}
+
